@@ -62,3 +62,60 @@ export const CreateUser = async (req, res) =>{
         });
     }
 };
+
+
+export const UpdateUser = async (req, res) =>{
+    const { id } = req.params;
+    const { nombre, apellido, correo, avatar_id } = req.body;
+
+    const userId = id?.trim();
+
+    if (!userId) {
+        return res.status(400).json({ error: "Se requiere un ID de usuario válido." });
+    }
+
+    try{
+        if (correo) {
+            const { error: authError } = await supabaseAdmin.auth.admin.updateUserById(
+                userId,
+                { email: correo }
+            );
+
+            if (authError) {
+                console.error("Error en Auth: ", authError.message);
+                return res.status(400).json({ error: "No se pudo actualizar el acceso: " + authError.message });
+            }
+        }
+        
+        const updateData = {};
+        if (nombre !== undefined) updateData.nombre = nombre;
+        if (apellido !== undefined) updateData.apellido = apellido;
+        if (correo !== undefined) updateData.correo = correo;
+        if (avatar_id !== undefined) updateData.avatar_id = avatar_id;
+
+        if (Object.keys(updateData).length === 0) {
+            return res.status(400).json({ message: "No se proporcionaron datos para actualizar." });
+        }
+
+        const { data, error: dbError } = await supabaseAdmin
+            .from('Usuarios')
+            .update(updateData)
+            .eq('id_usuario', userId)
+            .select();
+    
+        if (dbError) throw dbError;
+
+        if (!data || data.length === 0){
+            return res.status(400).json({ message: "Usuario no encontrado en la base de datos "});
+        };
+
+        return res.json({
+            message: "Usuario actualizado con exito en Auth y base de datos",
+            usuario: data[0]
+        });
+    
+    } catch(error){
+        console.log("Error en UpdateUser: ", error.message);
+        res.status(500).json({ error: error.message });
+    }
+};
