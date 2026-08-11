@@ -21,7 +21,7 @@ export const CreateUser = async (req, res) =>{
         userId = authData.user?.id;
 
         if (userId){
-            const { data, error: dbError } = await supabase
+            const { data, error: dbError } = await supabaseAdmin
             .from('Usuarios')
             .insert([
                 {
