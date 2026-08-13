@@ -1,0 +1,11 @@
+.Main-Layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #050406;
+
+}
+
+.Content {
+  flex: 1;
+}
