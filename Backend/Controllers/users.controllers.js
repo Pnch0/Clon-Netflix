@@ -64,6 +64,37 @@ export const CreateUser = async (req, res) =>{
 };
 
 
+export const GetUser = async (req, res) =>{
+    try{
+        console.log("Consultando a Supabase....");
+        const { data, error } = await supabaseAdmin
+        .from('Usuarios')
+        .select(`
+            id_usuario,
+            nombre,
+            apellido,
+            correo,
+            avatar_id
+            `);
+
+        if(error){
+            console.error("Error de Supabase: ", error.message);
+            return res.status(400).json({ error: error.message });
+        }
+
+        console.log("Usuarios obtenidos con exito");
+        return res.status(200).json(data);
+    
+    } catch(error){
+        console.error("Errro critico en el servidor", error);
+
+        if(!res.headersSent){
+            res.status(500).json({ message: "Error interno" });
+        }
+    }
+};
+
+
 export const UpdateUser = async (req, res) =>{
     const { id } = req.params;
     const { nombre, apellido, correo, avatar_id } = req.body;
