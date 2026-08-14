@@ -152,3 +152,112 @@ body {
 .ContenedorFormulario-Register input:focus{
     border: 1px solid #945AF2;
 }
+
+
+/* MEDIA QUERIES */
+@media (max-height: 900px) {
+    .Contenedor-Centrado {
+        height: auto;
+        padding: 40px 0;
+        box-sizing: border-box;
+    }
+
+    .Contenedor-Register {
+        height: auto;
+        min-height: auto;
+        min-width: 380px; /* Evita que se comprima demasiado a lo ancho */
+        padding-bottom: 35px;
+    }
+
+    .ContenedorBotones-Register {
+        height: auto;
+        padding: 30px 0 15px 0;
+    }
+
+    .ContenedorFormulario-Register {
+        height: auto;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .Contenedor-Register {
+        width: 60%;
+        height: auto;
+        min-height: auto;
+        padding-bottom: 30px;
+    }
+
+    .ContenedorBotones-Register {
+        height: auto;
+        padding: 30px 0 20px 0;
+    }
+
+    .ContenedorFormulario-Register {
+        height: auto;
+    }
+
+
+    .Campo-Formulario {
+        width: 38%;
+    }
+}
+
+@media (max-width: 768px) {
+    .Contenedor-Centrado {
+        padding: 20px 15px;
+        box-sizing: border-box;
+    }
+
+    .Contenedor-Register {
+        width: 100%;
+        max-width: 420px;
+        min-width: unset;
+        height: auto;
+        padding-bottom: 25px;
+    }
+
+    .Linea-Doble {
+        flex-direction: column;
+        width: 85%;
+        padding: 0;
+        gap: 0;
+    }
+
+    .Campo-Formulario {
+        width: 100%;
+    }
+
+    .Campo-Formulario label {
+        margin-top: 15px;
+    }
+
+    .ContenedorFormulario-Register input,
+    .ContenedorFormulario-Register label {
+        width: 85%;
+    }
+
+    .ContenedorFormulario-Register label {
+        margin-top: 15px;
+        margin-bottom: 8px;
+    }
+
+    .ContenedorBotones-Register .Boton-Login,
+    .ContenedorBotones-Register .Boton-Register {
+        padding: 12px 25px;
+        font-size: 14px;
+    }
+
+    .ContenedorFormulario-Register .BotonSubmit-Register {
+        width: 85%;
+        margin-top: 25px;
+    }
+}
+
+@media (max-width: 400px) {
+    .ContenedorBotones-Register .Boton-Login,
+    .ContenedorBotones-Register .Boton-Register {
+        padding: 10px 18px;
+        font-size: 13px;
+    }
+}
