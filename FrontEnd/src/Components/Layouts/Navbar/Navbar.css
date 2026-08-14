@@ -1,0 +1,121 @@
+body {
+    font-family: sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    min-height: 100vh;
+    background-color: #050406;
+}
+
+.Contenedor-Navbar {
+    width: 95%;
+    height: 80px;
+    background-color: #09080D;
+    border: 1px solid #241F2E;
+    margin: 20px auto 0;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.ContenedorNavbar-Izquierda{
+    width: 70%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+}
+
+.ContenedorNavbar-Derecha{
+    width: 30%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 80px;
+    padding-right: 50px;
+}
+
+.ContenedorNavbarIzquierda-Izquierda{
+    width: 10%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ContenedorNavbarIzquierda-Izquierda .Icono-Navbar{
+    font-size: 60px;
+    color: #945AF2;
+}
+
+.ContenedorNavbarIzquierda-Derecha{
+    width: 90%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+}
+
+.ContenedorNavbarIzquierda-Derecha ul{
+    width: 40%;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.ContenedorNavbarIzquierda-Derecha li{
+    list-style: none;
+    color: #FFF;
+    background-color: #210F3E;
+    padding: 8px 20px;
+    border-radius: 25px;
+    border: 1px solid #241F2E;
+}
+
+
+
+.ContenedorNavbar-Derecha .ContenedorNavbar-Input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ContenedorNavbar-Derecha .ContenedorNavbar-Input .Icono-Buscador {
+    position: absolute;
+    left: 12px;
+    color: #241F2E;
+    font-size: 16px;
+    pointer-events: none;
+    transition: color 0.3s ease;
+}
+
+.ContenedorNavbar-Derecha .ContenedorNavbar-Input input{
+    padding: 10px 25px 10px 38px;
+    border-radius: 8px;
+    border: 1px solid #241F2E;
+    background-color: transparent;
+    color: #FFF;
+    transition: all 0.3s ease;
+}
+
+.ContenedorNavbar-Derecha .ContenedorNavbar-Input input:focus{
+    border-color: #945AF2;
+    color: #FFF;
+    outline: none;
+}
+
+.ContenedorNavbar-Derecha .ContenedorNavbar-Input:focus-within .Icono-Buscador {
+    color: #945AF2;
+}
+
+.ContenedorNavbar-Derecha .Icono-Usuario{
+    color: #945AF2;
+    font-size: 45px;
+}
