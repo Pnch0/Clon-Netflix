@@ -1,5 +1,6 @@
 import React from "react";
 import './Navbar.css';
+import { NavLink } from 'react-router-dom';
 import { MdMovie } from "react-icons/md";
 import { FaUserCircle, FaSearch } from "react-icons/fa";
 
@@ -14,10 +15,25 @@ function Navbar(){
                 </div>
                 <div className="ContenedorNavbarIzquierda-Derecha">
                     <ul>
-                        <li>Home</li>
-                        <li>Series</li>
-                        <li>Peliculas</li>
-                        <li>Mi Lista</li>
+                        <li>
+                            <NavLink to="/main-page" className="nav-item">
+                                Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/series-page" className="nav-item">
+                                Series
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/films-page" className="nav-item">
+                                Peliculas
+                            </NavLink>
+                        </li>
+                        <li><NavLink to="/list-page" className="nav-item">
+                                Mi Lista
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>

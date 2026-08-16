@@ -62,7 +62,7 @@ body {
 }
 
 .ContenedorNavbarIzquierda-Derecha ul{
-    width: 40%;
+    width: auto;
     padding: 0;
     display: flex;
     flex-direction: row;
@@ -73,9 +73,23 @@ body {
 .ContenedorNavbarIzquierda-Derecha li{
     list-style: none;
     color: #FFF;
-    background-color: #210F3E;
     padding: 8px 20px;
     border-radius: 25px;
+}
+
+.nav-item{
+    color: #FFF;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: 25px;
+    background-color: #210F3E;
+    border: 1px solid #241F2E;
+}
+
+.nav-item.active {
+    background-color: #945AF2;
     border: 1px solid #241F2E;
 }
 
