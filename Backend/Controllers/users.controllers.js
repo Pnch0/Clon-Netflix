@@ -162,8 +162,8 @@ export const LoginUser = async (req, res) =>{
 
     try{
         const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-            correo,
-            contraseña,
+            email: correo,
+            password: contraseña,
         });
 
         if (authError){
@@ -176,7 +176,7 @@ export const LoginUser = async (req, res) =>{
 
         const userId = authData.user?.id;
 
-        const { data: usuariosTabla, error: dbError } = await supabase
+        const { data: usuariosTabla, error: dbError } = await supabaseAdmin
             .from('Usuarios')
             .select(`
                 id_usuario,
@@ -192,12 +192,12 @@ export const LoginUser = async (req, res) =>{
             console.error("Error al consultar la tabla Usuario: ", dbError.message);
         }
 
-        return res.json({
-            message: "Inicio de sesion exitoso",
-            token: authData.session.access_token,
-            refresh_token: authData.session.refresh_token,
-            user: {
-                id: authData.user.id,
+        return res.status(200).json({
+            message: "Inicio de sesión exitoso",
+            token: authData.session?.access_token,
+            refresh_token: authData.session?.refresh_token,
+            user: usuarioPerfil || {
+                id_usuario: authData.user.id,
                 correo: authData.user.email,
             }
         });
