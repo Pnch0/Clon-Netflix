@@ -150,3 +150,60 @@ export const UpdateUser = async (req, res) =>{
         res.status(500).json({ error: error.message });
     }
 };
+
+
+
+export const LoginUser = async (req, res) =>{
+    const { correo, contraseña } = req.body;
+
+    if (!correo || !contraseña){
+        return res.status(400).json({error: "El correo y la contraseña son obligatorios."});
+    }
+
+    try{
+        const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+            correo,
+            contraseña,
+        });
+
+        if (authError){
+            console.error("Detalle error Supabase Auth: ", authError.message, authError.status);
+            return res.status(401).json({
+                error: "Credenciales invalidas",
+                detalle: authError.message
+            });
+        }
+
+        const userId = authData.user?.id;
+
+        const { data: usuariosTabla, error: dbError } = await supabase
+            .from('Usuarios')
+            .select(`
+                id_usuario,
+                nombre,
+                apellido,
+                correo,
+                avatar_id
+            `)
+            .eq('id_usuario', userId)
+            .single();
+
+        if (dbError){
+            console.error("Error al consultar la tabla Usuario: ", dbError.message);
+        }
+
+        return res.json({
+            message: "Inicio de sesion exitoso",
+            token: authData.session.access_token,
+            refresh_token: authData.session.refresh_token,
+            user: {
+                id: authData.user.id,
+                correo: authData.user.email,
+            }
+        });
+            
+    } catch (error){
+        console.error("Error en LoginUser: ", error);
+        return res.status(500).json({ error: "Error interno del servidor al intentar iniciar sesion. "});
+    }
+};
