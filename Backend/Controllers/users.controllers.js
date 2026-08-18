@@ -153,20 +153,20 @@ export const UpdateUser = async (req, res) =>{
 
 
 
-export const LoginUser = async (req, res) =>{
+export const LoginUser = async (req, res) => {
     const { correo, contraseña } = req.body;
 
-    if (!correo || !contraseña){
-        return res.status(400).json({error: "El correo y la contraseña son obligatorios."});
+    if (!correo || !contraseña) {
+        return res.status(400).json({ error: "El correo y la contraseña son obligatorios." });
     }
 
-    try{
+    try {
         const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
             email: correo,
             password: contraseña,
         });
 
-        if (authError){
+        if (authError) {
             console.error("Detalle error Supabase Auth: ", authError.message, authError.status);
             return res.status(401).json({
                 error: "Credenciales invalidas",
@@ -176,7 +176,7 @@ export const LoginUser = async (req, res) =>{
 
         const userId = authData.user?.id;
 
-        const { data: usuariosTabla, error: dbError } = await supabaseAdmin
+        const { data: usuarioPerfil, error: dbError } = await supabaseAdmin
             .from('Usuarios')
             .select(`
                 id_usuario,
@@ -188,8 +188,8 @@ export const LoginUser = async (req, res) =>{
             .eq('id_usuario', userId)
             .single();
 
-        if (dbError){
-            console.error("Error al consultar la tabla Usuario: ", dbError.message);
+        if (dbError) {
+            console.error("Error al consultar la tabla Usuarios: ", dbError.message);
         }
 
         return res.status(200).json({
@@ -202,8 +202,8 @@ export const LoginUser = async (req, res) =>{
             }
         });
             
-    } catch (error){
+    } catch (error) {
         console.error("Error en LoginUser: ", error);
-        return res.status(500).json({ error: "Error interno del servidor al intentar iniciar sesion. "});
+        return res.status(500).json({ error: "Error interno del servidor al intentar iniciar sesión." });
     }
 };
