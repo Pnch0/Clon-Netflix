@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { UserService } from '../../Services/Api';
 import './Register.css';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 
 function RegisterPage(){
@@ -35,15 +36,24 @@ function RegisterPage(){
 
         try {
         await UserService.createUser(formData);
-        setSuccess('¡Cuenta creada con éxito! Redirigiendo...');
+
+        toast.success(`¡Cuenta creada con éxito!`, {
+                description: `Bienvenido/a ${formData.nombre}, redirigiendo...`,
+            });
 
         setFormData({ nombre: '', apellido: '', correo: '', contraseña: '' });
 
         setTimeout(() => {
             navigate('/main-page');
         }, 2000);
+
         } catch (err) {
-        setError(err.message || 'Ocurrió un error al registrar la cuenta.');
+        
+            toast.error('Error al registrar la cuenta', {
+                description: err.response?.data?.message || err.message || 'Ocurrió un error al procesar el registro.',
+            });
+
+
         } finally {
         setLoading(false);
         }
