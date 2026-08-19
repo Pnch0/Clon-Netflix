@@ -2,6 +2,7 @@ import './Login.css';
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthService } from '../../Services/Api.js';
+import { toast } from 'sonner';
 
 function LoginPage(){
     const [correo, setCorreo] = useState('');
@@ -30,10 +31,21 @@ function LoginPage(){
                 localStorage.setItem('usuario', JSON.stringify(data.user));
             }
 
-            navigate('/main-page');
+            toast.success(`¡Bienvenido de vuelta${data.user?.nombre ? `, ${data.user.nombre}` : ''}!`, {
+                description: 'Iniciando sesión correctamente.',
+            });
+
+            setTimeout(() => {
+                navigate('/main-page');
+            }, 1500);
 
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
+
+            toast.error('Error al iniciar sesión', {
+                description: error.response?.data?.message || error.message || 'Credenciales incorrectas.',
+            });
+
         } finally {
             setCargando(false);
         }
