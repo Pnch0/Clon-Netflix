@@ -69,6 +69,7 @@ function RegisterPage(){
                                 <input 
                                     type="text" 
                                     id="Nombre" 
+                                    name='nombre'
                                     value={formData.nombre}
                                     onChange={handleChange}
                                     placeholder="Juan" 
@@ -80,6 +81,7 @@ function RegisterPage(){
                                 <input 
                                     type="text" 
                                     id="Apellido" 
+                                    name='apellido'
                                     value={formData.apellido}
                                     onChange={handleChange}
                                     placeholder="Perez" 
@@ -92,6 +94,7 @@ function RegisterPage(){
                         <input 
                             type="email" 
                             id='Email'
+                            name='correo'
                             value={formData.correo}
                             onChange={handleChange}
                             placeholder='ejemplocorreo@gmail.com'
@@ -102,6 +105,7 @@ function RegisterPage(){
                         <input 
                             type="password" 
                             id='Password'
+                            name='contraseña'
                             value={formData.contraseña}
                             onChange={handleChange}
                             placeholder='*************'
