@@ -1,0 +1,73 @@
+.Row-Container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.Row-Title {
+  color: #ffffff;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+
+.Row-Wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
+.Row-Cards {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  padding: 10px 0 20px 0;
+}
+
+
+.Slider-Arrow {
+  position: absolute;
+  top: 0;
+  bottom: 20px;
+  width: 48px;
+  background-color: rgba(5, 4, 6, 0.65);
+  color: #945AF2;
+  border: none;
+  font-size: 2.8rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.Slider-Arrow.left {
+  left: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.Slider-Arrow.right {
+  right: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+
+.Row-Wrapper:hover .Slider-Arrow {
+  opacity: 1;
+}
+
+.Slider-Arrow:hover {
+  background-color: rgba(5, 4, 6, 0.9);
+}
