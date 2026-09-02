@@ -1,4 +1,4 @@
-import { tmdbService } from "../Services/tmdb.service.js";
+import {tmdbService} from '../Services/tmdbService.js'
 
 export const GetTrending = async (req, res) => {
   const { mediaType = "all", timeWindow = "week" } = req.query;

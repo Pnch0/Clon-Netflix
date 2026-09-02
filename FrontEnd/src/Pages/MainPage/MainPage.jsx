@@ -1,62 +1,150 @@
+import { useState, useEffect } from 'react';
+import { MovieService } from '../../Services/Api.js';
 import './MainPage.css';
 
-function MainPage(){
+const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+const BACKDROP_BASE_URL = 'https://image.tmdb.org/t/p/original';
 
-    return(
-        <>
-        <div className="Contenedor-MainPage">
-            <div className="Contenedor-PeliculaPrincipal">
-            
-            </div>
+function MainPage() {
+  const [heroMovie, setHeroMovie] = useState(null);
+  const [trending, setTrending] = useState([]);
+  const [actionMovies, setActionMovies] = useState([]);
+  const [series, setSeries] = useState([]);
+  const [anime, setAnime] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-            <div className="Contenedor-Tendencias">
-                <div className="Contenedor-TextoTendecias">
-                    <h2>Tendencias</h2>
-                </div>
-                <div className="Contenedor-PeliculasTendencias">
-                    <div className="Movie-Card">
+  useEffect(() => {
+    const fetchCatalog = async () => {
+      try {
+        setLoading(true);
 
-                    </div>
-                </div>
-            </div>
+        const [trendingData, actionData, tvData, animeData] = await Promise.all([
+          MovieService.getTrending('all', 'week'),
+          MovieService.discoverByGenre('movie', 28),
+          MovieService.getTvShowsByCategory('popular'),
+          MovieService.discoverByGenre('tv', 16),
+        ]);
 
-            <div className="Contenedor-Accion">
-                <div className="Contenedor-TextoAccion">
-                    <h2>Accion</h2>
-                </div>
-                <div className="Contenedor-PeliculasAccion">
-                    <div className="Movie-Card">
+        const trendingResults = trendingData.results || [];
+        setTrending(trendingResults);
 
-                    </div>
-                </div>
-            </div>
 
-            <div className="Contenedor-Series">
-                <div className="Contenedor-TextoSeries">
-                    <h2>Series</h2>
-                </div>
-                <div className="Contenedor-ListadosSeries">
-                    <div className="Movie-Card">
+        if (trendingResults.length > 0) {
+          const randomIndex = Math.floor(Math.random() * trendingResults.length);
+          setHeroMovie(trendingResults[randomIndex]);
+        }
 
-                    </div>
-                </div>
-            </div>
+        setActionMovies(actionData.results || []);
+        setSeries(tvData.results || []);
+        setAnime(animeData.results || []);
+      } catch (error) {
+        console.error('Error al cargar el contenido de MainPage:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-            <div className="Contenedor-Anime">
-                <div className="Contenedor-TextoAnime">
-                    <h2>Anime</h2>
-                </div>
-                <div className="Contenedor-ListadosAnime">
-                    <div className="Movie-Card">
+    fetchCatalog();
+  }, []);
 
-                    </div>
-                </div>
-            </div>
+  if (loading) {
+    return <div className="Loading">Cargando catálogo...</div>;
+  }
 
+  return (
+    <div className="Contenedor-MainPage">
+
+      {heroMovie && (
+        <div
+          className="Contenedor-PeliculaPrincipal"
+          style={{
+            backgroundImage: heroMovie.backdrop_path
+              ? `linear-gradient(to top, #141414, transparent 90%), url(${BACKDROP_BASE_URL}${heroMovie.backdrop_path})`
+              : 'none',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <div className="Hero-Info">
+            <h1>{heroMovie.title || heroMovie.name}</h1>
+            <p>{heroMovie.overview}</p>
+          </div>
         </div>
-        </>
-    )
-}
+      )}
 
+
+      <div className="Contenedor-Tendencias">
+        <div className="Contenedor-TextoTendecias">
+          <h2>Tendencias</h2>
+        </div>
+        <div className="Contenedor-PeliculasTendencias">
+          {trending.map((item) => (
+            <div key={item.id} className="Movie-Card">
+              <img
+                src={item.poster_path ? `${IMAGE_BASE_URL}${item.poster_path}` : 'https://via.placeholder.com/200x300?text=No+Image'}
+                alt={item.title || item.name}
+              />
+              <p>{item.title || item.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div className="Contenedor-Accion">
+        <div className="Contenedor-TextoAccion">
+          <h2>Acción</h2>
+        </div>
+        <div className="Contenedor-PeliculasAccion">
+          {actionMovies.map((movie) => (
+            <div key={movie.id} className="Movie-Card">
+              <img
+                src={movie.poster_path ? `${IMAGE_BASE_URL}${movie.poster_path}` : 'https://via.placeholder.com/200x300?text=No+Image'}
+                alt={movie.title}
+              />
+              <p>{movie.title}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div className="Contenedor-Series">
+        <div className="Contenedor-TextoSeries">
+          <h2>Series Populares</h2>
+        </div>
+        <div className="Contenedor-ListadosSeries">
+          {series.map((show) => (
+            <div key={show.id} className="Movie-Card">
+              <img
+                src={show.poster_path ? `${IMAGE_BASE_URL}${show.poster_path}` : 'https://via.placeholder.com/200x300?text=No+Image'}
+                alt={show.name}
+              />
+              <p>{show.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div className="Contenedor-Anime">
+        <div className="Contenedor-TextoAnime">
+          <h2>Animación</h2>
+        </div>
+        <div className="Contenedor-ListadosAnime">
+          {anime.map((item) => (
+            <div key={item.id} className="Movie-Card">
+              <img
+                src={item.poster_path ? `${IMAGE_BASE_URL}${item.poster_path}` : 'https://via.placeholder.com/200x300?text=No+Image'}
+                alt={item.name || item.title}
+              />
+              <p>{item.name || item.title}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default MainPage;

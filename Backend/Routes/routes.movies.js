@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { GetTrending, GetMoviesByCategory, GetTvShowsByCategory, GetMovieDetails, GetTvDetails, DiscoverByGenre, GetGenres, SearchMulti } from '../Controllers/movies.controller.js';
+import { GetTrending, GetMoviesByCategory, GetTvShowsByCategory, GetMovieDetails, GetTvDetails, DiscoverByGenre, GetGenres, SearchMulti } from '../Controllers/movies.controllers.js';
 
 const router = express.Router();
 

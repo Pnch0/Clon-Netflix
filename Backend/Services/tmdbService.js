@@ -24,7 +24,7 @@ const tmdbClient = axios.create({
 export const tmdbService = {
   getTrending: async (mediaType = 'all', timeWindow = 'week') => {
     const { data } = await tmdbClient.get(`/trending/${mediaType}/${timeWindow}`);
-    return data.results;
+    return data; 
   },
 
 
