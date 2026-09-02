@@ -41,30 +41,74 @@ body {
     color: #FFFFFFFF;
 }
 
-.Contenedor-PeliculasTendencias, .Contenedor-PeliculasAccion, .Contenedor-ListadoSeries, .Contenedor-ListadoAnime{
+.Contenedor-PeliculasTendencias, .Contenedor-PeliculasAccion, .Contenedor-ListadosSeries, .Contenedor-ListadosAnime{
     width: 100%;
-    height: 35dvh;
+    height: auto;
+    min-height: 320px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     gap: 16px;
     overflow-x: auto;
-    padding: 8px 4px;
+    overflow-y: hidden;
+    padding: 10px 4px 20px 4px;
     scrollbar-width: thin;
+    scroll-behavior: smooth;
 }
 
-.Movie-Card{
-    width: 200px;
-    height: 32dvh;
+.Movie-Card {
+    width: 180px;
+    height: 300px;
     background-color: #09080D;
     border: 1px solid #241F2E;
-    border-radius: 5px;
+    border-radius: 6px;
     flex-shrink: 0;
     cursor: pointer;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
 .Movie-Card:hover {
-    transform: scale(1.04);
+    transform: translateY(-6px) scale(1.03);
     border-color: #5c4e75;
+}
+
+
+.Movie-Card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
+
+.Movie-Card p {
+    color: #FFFFFF;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 8px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Contenedor-PeliculasTendencias::-webkit-scrollbar {
+    height: 6px;
+}
+
+.Contenedor-PeliculasTendencias::-webkit-scrollbar-track {
+    background: #09080D;
+    border-radius: 4px;
+}
+
+.Contenedor-PeliculasTendencias::-webkit-scrollbar-thumb {
+    background: #241F2E;
+    border-radius: 4px;
+}
+
+.Contenedor-PeliculasTendencias::-webkit-scrollbar-thumb:hover {
+    background: #5c4e75;
 }
