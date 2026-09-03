@@ -17,13 +17,91 @@ body {
     padding-bottom: 40px;
 }
 
-.Contenedor-PeliculaPrincipal{
-    width: 90%;
-    height: 60dvh;
-    background-color: #09080D;
-    border-radius: 15px;
-    border: 1px solid #241F2E;
-    margin-top: 40px;
+.Contenedor-PeliculaPrincipal {
+  position: relative;
+  width: 90%;
+  min-height: 65vh;
+  border-radius: 16px;
+  border: 1px solid #241f2e;
+  margin-top: 32px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.Hero-Info {
+  width: 100%;
+  max-width: 600px;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 2;
+}
+
+.Hero-Title {
+  color: #ffffff;
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.Hero-Overview {
+  color: #d1d1d6;
+  font-size: 1rem;
+  line-height: 1.45;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.Hero-Buttons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.Hero-Btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.Hero-Btn:hover {
+  transform: scale(1.04);
+}
+
+.Btn-Play {
+  background-color: #945AF2;
+  color: #FFFFFF;
+}
+
+.Btn-Play:hover {
+  background-color: #b990fc;
+}
+
+.Btn-Info {
+  background-color: rgba(109, 109, 110, 0.6);
+  color: #ffffff;
+  backdrop-filter: blur(4px);
+}
+
+.Btn-Info:hover {
+  background-color: rgba(109, 109, 110, 0.4);
 }
 
 .Contenedor-Tendencias, .Contenedor-Accion, .Contenedor-Series, .Contenedor-Anime{
