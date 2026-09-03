@@ -190,3 +190,76 @@ body {
 .Contenedor-PeliculasTendencias::-webkit-scrollbar-thumb:hover {
     background: #5c4e75;
 }
+
+.Contenedor-Resultados-Busqueda {
+  padding: 100px 4% 50px;
+  min-height: 80vh;
+  box-sizing: border-box;
+  background-color: #050406;
+}
+
+.Titulo-Resultados {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.Titulo-Resultados span {
+  color: #945AF2;
+}
+
+
+.Grid-Peliculas-Busqueda {
+  display: grid;
+  grid-template-columns: repeat(9, 180px);
+  justify-content: center;
+  gap: 30px 20px; 
+}
+
+
+.Tarjeta-Pelicula-Busqueda {
+  width: 180px;
+  height: 300px;
+  background-color: #09080D;
+  border: 1px solid #241F2E;
+  border-radius: 6px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.Tarjeta-Pelicula-Busqueda:hover {
+  transform: translateY(-6px) scale(1.03);
+  border-color: #5c4e75;
+  z-index: 2;
+}
+
+.Poster-Busqueda {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.Titulo-Pelicula-Busqueda {
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 8px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+
+.Sin-Resultados, .Loading {
+  color: #999;
+  text-align: center;
+  margin-top: 80px;
+  font-size: 1.2rem;
+}
