@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { GetTrending, GetMoviesByCategory, GetTvShowsByCategory, GetMovieDetails, GetTvDetails, DiscoverByGenre, GetGenres, SearchMulti } from '../Controllers/movies.controllers.js';
+import { GetTrending, GetMoviesByCategory, GetTvShowsByCategory, GetMovieDetails, GetTvDetails, DiscoverByGenre, GetGenres, SearchMulti, getKdramas } from '../Controllers/movies.controllers.js';
 
 const router = express.Router();
 
@@ -12,5 +12,6 @@ router.get('/tv/:id', GetTvDetails);
 router.get('/discover/:mediaType/:genreId', DiscoverByGenre);
 router.get('/genres/:mediaType', GetGenres);
 router.get('/search', SearchMulti);
+router.get('/kdramas', getKdramas);
 
 export default router;

@@ -32,6 +32,23 @@ export const GetMoviesByCategory = async (req, res) => {
   }
 };
 
+export const getKdramas = async (req, res) => {
+    try {
+        const response = await axios.get(`https://api.themoviedb.org/3/discover/tv`, {
+            params: {
+                api_key: process.env.TMDB_API_KEY,
+                language: 'es-ES',
+                with_original_language: 'ko',
+                page: 1
+            }
+        });
+        
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener los K-Dramas desde TMDB' });
+    }
+};
+
 
 export const GetTvShowsByCategory = async (req, res) => {
   const { category = "popular" } = req.params;

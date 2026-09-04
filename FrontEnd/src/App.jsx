@@ -5,6 +5,7 @@ import MainLayout from './Components/Layouts/MainLayout/MainLayout.jsx';
 import MainPage from './Pages/MainPage/MainPage.jsx';
 import LoginPage from './Pages/LoginPage/Login.jsx';
 import RegisterPage from './Pages/RegisterPage/Register.jsx';
+import SeriesPage from './Pages/SeriesPage/SeriesPage.jsx';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<MainLayout />}>
               <Route path="/main-page" element={<MainPage />} />
+              <Route path="/series-page" element={<SeriesPage />} />
             </Route>
           </Route>
         </Routes>
