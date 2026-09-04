@@ -107,6 +107,20 @@ export const MovieService = {
         }
     },
 
+    getKdramas: async () => {
+        try {
+            const response = await fetch(`${API_URL}/tv/kdramas`);
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || 'Error al obtener los K-Dramas.');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Error en MovieService.getKdramas: ", error.message);
+            throw error;
+        }
+    },
+
     getTvDetails: async (id) => {
         try {
             const response = await fetch(`${API_URL}/tv/${id}`);
