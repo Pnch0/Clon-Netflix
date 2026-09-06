@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MovieService } from '../../Services/Api.js';
 import MovieRow from '../../Components/MoviesRow/MovieRow.jsx';
-import './MainPage.css';
+import '../MainPage/MainPage.css';
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 const BACKDROP_BASE_URL = 'https://image.tmdb.org/t/p/original';
