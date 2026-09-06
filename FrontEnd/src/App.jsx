@@ -6,6 +6,7 @@ import MainPage from './Pages/MainPage/MainPage.jsx';
 import LoginPage from './Pages/LoginPage/Login.jsx';
 import RegisterPage from './Pages/RegisterPage/Register.jsx';
 import SeriesPage from './Pages/SeriesPage/SeriesPage.jsx';
+import FilmsPage from './Pages/FilmsPage/FilmsPage.jsx';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route element={<MainLayout />}>
               <Route path="/main-page" element={<MainPage />} />
               <Route path="/series-page" element={<SeriesPage />} />
+              <Route path="/films-page" element={<FilmsPage />} />
             </Route>
           </Route>
         </Routes>
