@@ -33,20 +33,20 @@ export const GetMoviesByCategory = async (req, res) => {
 };
 
 export const getKdramas = async (req, res) => {
-    try {
-        const response = await axios.get(`https://api.themoviedb.org/3/discover/tv`, {
-            params: {
-                api_key: process.env.TMDB_API_KEY,
-                language: 'es-ES',
-                with_original_language: 'ko',
-                page: 1
-            }
-        });
-        
-        res.json(response.data);
-    } catch (error) {
-        res.status(500).json({ error: 'Error al obtener los K-Dramas desde TMDB' });
-    }
+  try {
+      const apiKey = process.env.TMDB_API_KEY;
+      const response = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&language=es-ES&with_original_language=ko&page=1`);
+      
+      if (!response.ok) {
+          throw new Error('Error al conectar con TMDB');
+      }
+      
+      const data = await response.json();
+      return res.status(200).json(data);
+  } catch (error) {
+      console.error("Error en getKdramas: ", error.message);
+      return res.status(500).json({ error: 'Error al obtener los K-Dramas desde TMDB' });
+  }
 };
 
 

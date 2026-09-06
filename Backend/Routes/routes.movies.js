@@ -7,11 +7,11 @@ const router = express.Router();
 router.get('/trending', GetTrending);
 router.get('/movies/category/:category', GetMoviesByCategory);
 router.get('/tv/category/:category', GetTvShowsByCategory);
+router.get('/tv/kdramas', getKdramas);
 router.get('/movie/:id', GetMovieDetails);
-router.get('/tv/:id', GetTvDetails);
+router.get('/tv/:id', GetTvDetails); 
 router.get('/discover/:mediaType/:genreId', DiscoverByGenre);
 router.get('/genres/:mediaType', GetGenres);
 router.get('/search', SearchMulti);
-router.get('/kdramas', getKdramas);
 
 export default router;
