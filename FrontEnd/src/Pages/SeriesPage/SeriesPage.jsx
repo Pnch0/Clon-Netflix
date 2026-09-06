@@ -148,9 +148,9 @@ function SeriesPage() {
 
         <MovieRow title="Series en Tendencia" movies={trendingSeries} />
         <MovieRow title="Series de Acción" movies={actionSeries} />
-        <MovieRow title="Suspenso y Misterio" movies={suspenseSeries} />
+        <MovieRow title="Series de Suspenso y Misterio" movies={suspenseSeries} />
         <MovieRow title="K-Dramas" movies={kdramas} />
-        <MovieRow title="Anime" movies={animeSeries} />
+        <MovieRow title="Animes" movies={animeSeries} />
         </>
       )}
     </div>
