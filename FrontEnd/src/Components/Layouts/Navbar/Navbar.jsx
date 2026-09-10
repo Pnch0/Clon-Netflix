@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './Navbar.css';
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import { MdMovie } from "react-icons/md";
@@ -9,20 +8,43 @@ function Navbar(){
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const [inputValue, setInputValue] = useState(searchParams.get('q') || '');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
         setInputValue(searchParams.get('q') || '');
     }, [searchParams]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     const handleSearchChange = (e) => {
         const valor = e.target.value;
         setInputValue(valor);
 
         if (valor.trim().length > 0) {
-        navigate(`/main-page?q=${encodeURIComponent(valor)}`);
+            navigate(`/main-page?q=${encodeURIComponent(valor)}`);
         } else {
-        navigate('/main-page');
+            navigate('/main-page');
         }
+    };
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/', { replace: true });
     };
 
     return(
@@ -49,7 +71,8 @@ function Navbar(){
                                 Peliculas
                             </NavLink>
                         </li>
-                        <li><NavLink to="/list-page" className="nav-item">
+                        <li>
+                            <NavLink to="/list-page" className="nav-item">
                                 Mi Lista
                             </NavLink>
                         </li>
@@ -58,15 +81,34 @@ function Navbar(){
             </div>
             <div className="ContenedorNavbar-Derecha">
                 <div className="ContenedorNavbar-Input">
-                <FaSearch className="Icono-Buscador" />
-                <input
-                    type="text"
-                    placeholder="Titulos, personas, generos"
-                    value={inputValue}
-                    onChange={handleSearchChange}
-                />
+                    <FaSearch className="Icono-Buscador" />
+                    <input
+                        type="text"
+                        placeholder="Titulos, personas, generos"
+                        value={inputValue}
+                        onChange={handleSearchChange}
+                    />
                 </div>
-                <FaUserCircle className="Icono-Usuario"/>
+                
+                <div className="Contenedor-Usuario" ref={dropdownRef}>
+                    <FaUserCircle 
+                        className="Icono-Usuario" 
+                        onClick={toggleDropdown}
+                    />
+                    
+                    {isDropdownOpen && (
+                        <div className="Dropdown-Menu">
+                            <ul>
+                                <li>Perfil</li>
+                                <li>Configuración</li>
+                                <hr />
+                                <li onClick={handleLogout} className="Logout-Item">
+                                    Cerrar Sesión
+                                </li>
+                            </ul>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
         </>
