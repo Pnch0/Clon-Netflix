@@ -212,11 +212,10 @@ body {
 
 .Grid-Peliculas-Busqueda {
   display: grid;
-  grid-template-columns: repeat(9, 180px);
+  grid-template-columns: repeat(auto-fit, 180px);
   justify-content: center;
   gap: 30px 20px; 
 }
-
 
 .Tarjeta-Pelicula-Busqueda {
   width: 180px;
@@ -263,3 +262,144 @@ body {
   margin-top: 80px;
   font-size: 1.2rem;
 }
+
+
+/* MEDIA QUERIES */
+
+@media (max-width: 1024px) {
+  .Contenedor-PeliculaPrincipal {
+    min-height: 55vh;
+  }
+  .Hero-Info {
+    padding: 32px;
+    max-width: 80%;
+  }
+  .Hero-Title {
+    font-size: 2.2rem;
+  }
+
+  .Slider-Arrow {
+    display: none !important;
+  }
+
+  .Row-Cards {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch; 
+    scroll-snap-type: x mandatory;
+    padding-right: 20px;
+  }
+
+  .Movie-Card {
+    scroll-snap-align: start;
+  }
+
+  .Row-Cards::-webkit-scrollbar {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .Contenedor-MainPage {
+    gap: 40px;
+  }
+  
+  .Contenedor-PeliculaPrincipal,
+  .Contenedor-Tendencias, 
+  .Contenedor-Accion, 
+  .Contenedor-Series, 
+  .Contenedor-Anime {
+    width: 95%;
+  }
+
+  .Contenedor-PeliculaPrincipal {
+    min-height: 50vh;
+  }
+
+  .Hero-Info {
+    padding: 24px;
+    max-width: 100%;
+  }
+
+  .Hero-Title {
+    font-size: 1.8rem;
+  }
+
+
+  .Hero-Overview {
+    font-size: 0.95rem;
+    display: -webkit-box;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+
+  .Movie-Card, 
+  .Tarjeta-Pelicula-Busqueda {
+    width: 150px;
+    height: 260px;
+  }
+
+  .Movie-Card img, 
+  .Poster-Busqueda {
+    height: 210px;
+  }
+
+  .Grid-Peliculas-Busqueda {
+    grid-template-columns: repeat(auto-fit, 150px);
+  }
+}
+
+@media (max-width: 480px) {
+  .Contenedor-PeliculaPrincipal {
+    min-height: 45vh;
+    margin-top: 16px;
+  }
+
+  .Hero-Info {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .Hero-Title {
+    font-size: 1.5rem;
+  }
+
+  .Hero-Overview {
+    font-size: 0.85rem;
+    line-clamp: 3;
+  }
+
+  .Hero-Buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .Hero-Btn {
+    width: 100%;
+  }
+
+  .Movie-Card, 
+  .Tarjeta-Pelicula-Busqueda {
+    width: 120px;
+    height: 220px;
+  }
+
+  .Movie-Card img, 
+  .Poster-Busqueda {
+    height: 175px;
+  }
+
+  .Movie-Card p, 
+  .Titulo-Pelicula-Busqueda {
+    font-size: 0.75rem;
+    padding: 6px 8px;
+  }
+
+  .Grid-Peliculas-Busqueda {
+    grid-template-columns: repeat(auto-fit, 120px);
+    gap: 15px;
+  }
+}
+
