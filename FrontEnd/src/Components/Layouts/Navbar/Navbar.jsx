@@ -67,11 +67,6 @@ function Navbar(){
                                 Peliculas
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to="/list-page" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} onClick={closeMobileMenu}>
-                                Mi Lista
-                            </NavLink>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -87,7 +82,6 @@ function Navbar(){
                     />
                 </div>
                 
-                {/* NUEVO BOTÓN DE CERRAR SESIÓN */}
                 <div className="Contenedor-Logout" onClick={handleLogout}>
                     Cerrar Sesión
                 </div>

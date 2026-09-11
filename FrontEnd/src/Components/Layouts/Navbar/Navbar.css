@@ -155,7 +155,7 @@ body {
 }
 
 /* MEDIA QUERIES */
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1100px) {
     
     .Contenedor-Navbar {
         width: 100%;
