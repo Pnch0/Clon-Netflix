@@ -211,10 +211,11 @@ body {
 
 
 .Grid-Peliculas-Busqueda {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 180px);
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 30px 20px; 
+  gap: 30px 20px;
+  width: 100%;
 }
 
 .Tarjeta-Pelicula-Busqueda {
@@ -345,9 +346,6 @@ body {
     height: 210px;
   }
 
-  .Grid-Peliculas-Busqueda {
-    grid-template-columns: repeat(auto-fit, 150px);
-  }
 }
 
 @media (max-width: 480px) {
@@ -398,7 +396,6 @@ body {
   }
 
   .Grid-Peliculas-Busqueda {
-    grid-template-columns: repeat(auto-fit, 120px);
     gap: 15px;
   }
 }
