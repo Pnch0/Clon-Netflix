@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MovieService } from '../../Services/Api.js';
 import MovieRow from '../../Components/MoviesRow/MovieRow.jsx';
+import MovieModal from '../../Components/MovieModal/MovieModal.jsx';
 import '../MainPage/MainPage.css'
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
@@ -20,6 +21,7 @@ function SeriesPage() {
   const query = searchParams.get('q') || '';
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const fetchCatalog = async () => {
@@ -102,7 +104,11 @@ function SeriesPage() {
           ) : searchResults.length > 0 ? (
             <div className="Grid-Peliculas-Busqueda">
               {searchResults.map((series) => (
-                <div key={series.id} className="Tarjeta-Pelicula-Busqueda">
+                <div 
+                  key={series.id} 
+                  className="Tarjeta-Pelicula-Busqueda"
+                  onClick={() => setSelectedItem(series)}
+                >
                   <img
                     src={`${IMAGE_BASE_URL}${series.poster_path}`}
                     alt={series.name || series.title}
@@ -140,18 +146,30 @@ function SeriesPage() {
                 <p className="Hero-Overview">{heroSeries.overview}</p>
                 <div className="Hero-Buttons">
                   <button className="Hero-Btn Btn-Play">▶ Reproducir</button>
-                  <button className="Hero-Btn Btn-Info">ℹ Más información</button>
+                  <button 
+                    className="Hero-Btn Btn-Info"
+                    onClick={() => setSelectedItem(heroSeries)}
+                  >
+                    ℹ Más información
+                  </button>
                 </div>
               </div>
             </div>
           )}
 
-        <MovieRow title="Series en Tendencia" movies={trendingSeries} />
-        <MovieRow title="Series de Acción" movies={actionSeries} />
-        <MovieRow title="Series de Suspenso y Misterio" movies={suspenseSeries} />
-        <MovieRow title="K-Dramas" movies={kdramas} />
-        <MovieRow title="Animes" movies={animeSeries} />
+        <MovieRow title="Series en Tendencia" movies={trendingSeries} onItemClick={setSelectedItem} />
+        <MovieRow title="Series de Acción" movies={actionSeries} onItemClick={setSelectedItem} />
+        <MovieRow title="Series de Suspenso y Misterio" movies={suspenseSeries} onItemClick={setSelectedItem} />
+        <MovieRow title="K-Dramas" movies={kdramas} onItemClick={setSelectedItem} />
+        <MovieRow title="Animes" movies={animeSeries} onItemClick={setSelectedItem} />
         </>
+      )}
+
+      {selectedItem && (
+        <MovieModal 
+          item={selectedItem} 
+          onClose={() => setSelectedItem(null)} 
+        />
       )}
     </div>
   );

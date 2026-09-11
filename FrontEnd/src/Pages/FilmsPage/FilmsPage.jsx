@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MovieService } from '../../Services/Api.js';
 import MovieRow from '../../Components/MoviesRow/MovieRow.jsx';
+import MovieModal from '../../Components/MovieModal/MovieModal.jsx';
 import '../MainPage/MainPage.css';
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
@@ -21,6 +22,7 @@ function MoviesPage() {
   const query = searchParams.get('q') || '';
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const fetchCatalog = async () => {
@@ -44,7 +46,6 @@ function MoviesPage() {
 
         const trendingResults = trendingData.results || [];
         setTrendingMovies(trendingResults);
-
 
         if (trendingResults.length > 0) {
           const randomIndex = Math.floor(Math.random() * trendingResults.length);
@@ -114,7 +115,11 @@ function MoviesPage() {
           ) : searchResults.length > 0 ? (
             <div className="Grid-Peliculas-Busqueda">
               {searchResults.map((movie) => (
-                <div key={movie.id} className="Tarjeta-Pelicula-Busqueda">
+                <div 
+                  key={movie.id} 
+                  className="Tarjeta-Pelicula-Busqueda"
+                  onClick={() => setSelectedItem(movie)}
+                >
                   <img
                     src={`${IMAGE_BASE_URL}${movie.poster_path}`}
                     alt={movie.title || movie.name}
@@ -152,19 +157,31 @@ function MoviesPage() {
                 <p className="Hero-Overview">{heroMovie.overview}</p>
                 <div className="Hero-Buttons">
                   <button className="Hero-Btn Btn-Play">▶ Reproducir</button>
-                  <button className="Hero-Btn Btn-Info">ℹ Más información</button>
+                  <button 
+                    className="Hero-Btn Btn-Info"
+                    onClick={() => setSelectedItem(heroMovie)}
+                  >
+                    ℹ Más información
+                  </button>
                 </div>
               </div>
             </div>
           )}
 
-          <MovieRow title="Tendencias" movies={trendingMovies} />
-          <MovieRow title="Acción y Aventura" movies={actionMovies} />
-          <MovieRow title="Drama" movies={dramaMovies} />
-          <MovieRow title="Terror y Suspenso" movies={horrorMovies} />
-          <MovieRow title="Romance" movies={romanceMovies} />
-          <MovieRow title="Animación" movies={animationMovies} />
+          <MovieRow title="Tendencias" movies={trendingMovies} onItemClick={setSelectedItem} />
+          <MovieRow title="Acción y Aventura" movies={actionMovies} onItemClick={setSelectedItem} />
+          <MovieRow title="Drama" movies={dramaMovies} onItemClick={setSelectedItem} />
+          <MovieRow title="Terror y Suspenso" movies={horrorMovies} onItemClick={setSelectedItem} />
+          <MovieRow title="Romance" movies={romanceMovies} onItemClick={setSelectedItem} />
+          <MovieRow title="Animación" movies={animationMovies} onItemClick={setSelectedItem} />
         </>
+      )}
+
+      {selectedItem && (
+        <MovieModal 
+          item={selectedItem} 
+          onClose={() => setSelectedItem(null)} 
+        />
       )}
     </div>
   );
