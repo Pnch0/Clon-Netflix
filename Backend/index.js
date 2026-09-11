@@ -13,6 +13,6 @@ app.use(express.json());
 app.use('/api/users', routeUsers);
 app.use('/api', routeMovies);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`))
