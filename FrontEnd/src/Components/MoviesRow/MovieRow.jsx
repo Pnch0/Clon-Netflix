@@ -3,12 +3,11 @@ import './MovieRow.css';
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
-function MovieRow({ title, movies }) {
+function MovieRow({ title, movies, onItemClick }) {
   const rowRef = useRef(null);
 
   const handleScroll = (direction) => {
     if (rowRef.current) {
-      // Se desplaza el equivalente al ancho visible de la fila
       const scrollAmount = rowRef.current.clientWidth * 0.75;
 
       rowRef.current.scrollBy({
@@ -23,7 +22,6 @@ function MovieRow({ title, movies }) {
       <h2 className="Row-Title">{title}</h2>
 
       <div className="Row-Wrapper">
-        {/* Botón Izquierdo */}
         <button
           className="Slider-Arrow left"
           onClick={() => handleScroll('left')}
@@ -32,10 +30,13 @@ function MovieRow({ title, movies }) {
           ‹
         </button>
 
-        {/* Contenedor de Tarjetas */}
         <div className="Row-Cards" ref={rowRef}>
           {movies.map((item) => (
-            <div key={item.id} className="Movie-Card">
+            <div 
+              key={item.id} 
+              className="Movie-Card"
+              onClick={() => onItemClick(item)}
+            >
               <img
                 src={
                   item.poster_path
@@ -49,7 +50,6 @@ function MovieRow({ title, movies }) {
           ))}
         </div>
 
-        {/* Botón Derecho */}
         <button
           className="Slider-Arrow right"
           onClick={() => handleScroll('right')}

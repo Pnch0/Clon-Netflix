@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MovieService } from '../../Services/Api.js';
 import MovieRow from '../../Components/MoviesRow/MovieRow.jsx';
+import MovieModal from '../../Components/MovieModal/MovieModal.jsx';
 import './MainPage.css';
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
@@ -19,6 +20,7 @@ function MainPage() {
   const query = searchParams.get('q') || '';
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const fetchCatalog = async () => {
@@ -56,7 +58,7 @@ function MainPage() {
     const trimmedQuery = query.trim();
 
     if (!trimmedQuery) {
-      setSearchResults([]);
+      searchResults.length > 0 && setSearchResults([]);
       setIsSearching(false);
       return;
     }
@@ -99,7 +101,11 @@ function MainPage() {
           ) : searchResults.length > 0 ? (
             <div className="Grid-Peliculas-Busqueda">
               {searchResults.map((movie) => (
-                <div key={movie.id} className="Tarjeta-Pelicula-Busqueda">
+                <div 
+                  key={movie.id} 
+                  className="Tarjeta-Pelicula-Busqueda"
+                  onClick={() => setSelectedItem(movie)}
+                >
                   <img
                     src={`${IMAGE_BASE_URL}${movie.poster_path}`}
                     alt={movie.title || movie.name}
@@ -137,17 +143,29 @@ function MainPage() {
                 <p className="Hero-Overview">{heroMovie.overview}</p>
                 <div className="Hero-Buttons">
                   <button className="Hero-Btn Btn-Play">▶ Reproducir</button>
-                  <button className="Hero-Btn Btn-Info">ℹ Más información</button>
+                  <button 
+                    className="Hero-Btn Btn-Info"
+                    onClick={() => setSelectedItem(heroMovie)}
+                  >
+                    ℹ Más información
+                  </button>
                 </div>
               </div>
             </div>
           )}
 
-          <MovieRow title="Tendencias" movies={trending} />
-          <MovieRow title="Acción" movies={actionMovies} />
-          <MovieRow title="Series Populares" movies={series} />
-          <MovieRow title="Animación" movies={anime} />
+          <MovieRow title="Tendencias" movies={trending} onItemClick={setSelectedItem} />
+          <MovieRow title="Acción" movies={actionMovies} onItemClick={setSelectedItem} />
+          <MovieRow title="Series Populares" movies={series} onItemClick={setSelectedItem} />
+          <MovieRow title="Animación" movies={anime} onItemClick={setSelectedItem} />
         </>
+      )}
+
+      {selectedItem && (
+        <MovieModal 
+          item={selectedItem} 
+          onClose={() => setSelectedItem(null)} 
+        />
       )}
     </div>
   );
