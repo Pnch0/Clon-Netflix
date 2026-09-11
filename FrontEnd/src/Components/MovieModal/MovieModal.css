@@ -1,0 +1,123 @@
+.Modal-Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.Modal-Content {
+  background-color: #09080D;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: 12px;
+  border: 1px solid #241F2E;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.Modal-CloseBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(5, 4, 6, 0.7);
+  color: #fff;
+  border: 1px solid #241F2E;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.Modal-CloseBtn:hover {
+  background-color: #945AF2;
+  transform: scale(1.1);
+}
+
+.Modal-Header {
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+}
+
+.Modal-Body {
+  padding: 30px;
+  color: #fff;
+}
+
+.Modal-Title {
+  font-size: 2.2rem;
+  margin: 0 0 15px 0;
+  font-weight: 800;
+}
+
+.Modal-Meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  color: #d1d1d6;
+  font-weight: 600;
+}
+
+.Modal-Rating {
+  color: #945AF2;
+}
+
+.Modal-Overview {
+  line-height: 1.6;
+  font-size: 1.05rem;
+  color: #e0e0e0;
+  margin-bottom: 30px;
+}
+
+.Modal-PlayBtn {
+  background-color: #945AF2;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.Modal-PlayBtn:hover {
+  background-color: #b990fc;
+  transform: scale(1.05);
+}
+
+
+.Modal-Content::-webkit-scrollbar { width: 8px; }
+.Modal-Content::-webkit-scrollbar-track { background: #09080D; }
+.Modal-Content::-webkit-scrollbar-thumb { background: #241F2E; border-radius: 4px; }
+
+@media (max-width: 768px) {
+  .Modal-Header { height: 250px; }
+  .Modal-Title { font-size: 1.6rem; }
+  .Modal-Body { padding: 20px; }
+}
